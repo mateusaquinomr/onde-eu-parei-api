@@ -3,6 +3,11 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
+const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes');
+const topicRoutes = require('./routes/topicRoutes');
+const cycleRoutes = require('./routes/cycleRoutes');
+
 const app = express();
 
 app.use(cors());
@@ -16,5 +21,10 @@ mongoose.connect(process.env.MONGODB_URI)
 app.get('/', (req, res) => {
     res.json({ message: 'API Onde Eu Parei - Online' });
 });
+
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/topics', topicRoutes);
+app.use('/api/cycles', cycleRoutes);
 
 module.exports = app;
