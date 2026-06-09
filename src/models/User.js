@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
-console.log("🔥 User model carregado");
+console.log("User model carregado");
 
 const userSchema = new mongoose.Schema({
     name: { type: String, required: true },
@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.pre('save', async function () {
-    console.log("🔥 PRE SAVE EXECUTANDO");
+    console.log("PRE SAVE EXECUTANDO");
 
     if (!this.isModified('password')) return;
 
