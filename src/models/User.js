@@ -16,10 +16,15 @@ userSchema.pre('save', function (next) {
         return next();
     }
 
-    bcrypt.genSalt(10, function (err, salt) {
+    if (!bcrypt || typeof bcrypt.genSalt !== 'function') {
+        console.error('bcrypt não está disponível!');
+        return next(new Error('bcrypt não está disponível'));
+    }
+
+    bcrypt.genSalt(10, (err, salt) => {
         if (err) return next(err);
 
-        bcrypt.hash(user.password, salt, function (err, hash) {
+        bcrypt.hash(user.password, salt, (err, hash) => {
             if (err) return next(err);
             user.password = hash;
             next();
