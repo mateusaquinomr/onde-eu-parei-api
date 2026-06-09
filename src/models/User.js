@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
+console.log("🔥 User model carregado");
+
 const userSchema = new mongoose.Schema({
     name: { type: String, required: true },
     username: { type: String, required: true, unique: true },
@@ -9,22 +11,19 @@ const userSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now },
 });
 
-userSchema.pre('save', function (next) {
-    const user = this;
-    if (!user.isModified('password')) return next();
+userSchema.pre('save', async function () {
+    console.log("🔥 PRE SAVE EXECUTANDO");
 
-    bcrypt.genSalt(10, (err, salt) => {
-        if (err) return next(err);
-        bcrypt.hash(user.password, salt, (err, hash) => {
-            if (err) return next(err);
-            user.password = hash;
-            next();
-        });
-    });
+    if (!this.isModified('password')) return;
+
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
 });
 
 userSchema.methods.matchPassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 };
 
-module.exports = mongoose.model('User', userSchema);
+const User = mongoose.models.User || mongoose.model('User', userSchema);
+
+module.exports = User;
