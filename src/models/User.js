@@ -10,30 +10,25 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.pre('save', function (next) {
-    const user = this;
-
-    if (!user.isModified('password')) {
+    if (!this.isModified('password')) {
         return next();
     }
 
-    if (!bcrypt || typeof bcrypt.genSalt !== 'function') {
-        console.error('bcrypt não está disponível!');
-        return next(new Error('bcrypt não está disponível'));
+    try {
+        const salt = bcrypt.genSaltSync(10);
+        this.password = bcrypt.hashSync(this.password, salt);
+        next();
+    } catch (error) {
+        next(error);
     }
-
-    bcrypt.genSalt(10, (err, salt) => {
-        if (err) return next(err);
-
-        bcrypt.hash(user.password, salt, (err, hash) => {
-            if (err) return next(err);
-            user.password = hash;
-            next();
-        });
-    });
 });
 
-userSchema.methods.matchPassword = async function (enteredPassword) {
-    return await bcrypt.compare(enteredPassword, this.password);
+userSchema.methods.matchPassword = function (enteredPassword) {
+    try {
+        return bcrypt.compareSync(enteredPassword, this.password);
+    } catch (error) {
+        return false;
+    }
 };
 
 module.exports = mongoose.model('User', userSchema);
