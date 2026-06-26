@@ -1,37 +1,27 @@
 # Onde Eu Parei - API
 
-API do **Onde Eu Parei**, uma plataforma web para **gerenciamento de estudos baseada em ciclos**, desenvolvida para ajudar estudantes a organizarem sua preparação para **ENEM e concursos públicos**.
+API REST da plataforma **Onde Eu Parei**, um sistema de gerenciamento de estudos baseado em ciclos, desenvolvido para auxiliar estudantes na preparação para ENEM e concursos públicos.
 
-A API é responsável por gerenciar usuários, disciplinas, ciclos de estudo e sessões de estudo, fornecendo os dados necessários para que a aplicação web acompanhe o progresso do estudante e permita retomar os estudos exatamente **de onde ele parou**.
+A API fornece toda a infraestrutura de dados necessária para o acompanhamento de progresso, organização de disciplinas e registro de sessões de estudo.
 
 ---
 
-## Sobre o projeto
+## Sobre o Projeto
 
-O **Onde Eu Parei** foi criado para auxiliar estudantes que precisam lidar com **grande volume de conteúdo**, como ocorre em provas de **ENEM** e **concursos públicos**.
+O sistema implementa o método de **ciclos de estudos**, onde o estudante organiza disciplinas em sequência contínua, permitindo maior flexibilidade e consistência na rotina de estudos.
 
-Muitos estudantes utilizam o método de **ciclo de estudos**, que consiste em estudar disciplinas em sequência, avançando continuamente e retomando o ponto onde pararam na sessão anterior.
-
-A API fornece a infraestrutura necessária para que a aplicação:
-
-* crie ciclos de estudo personalizados
-* gerencie disciplinas
-* registre sessões de estudo
-* acompanhe o progresso dentro do ciclo
-* forneça dados para análise de desempenho
+A API é responsável por estruturar e gerenciar esse fluxo de forma automatizada.
 
 ---
 
 ## Responsabilidades da API
 
-A API é responsável por:
-
-* autenticação e gerenciamento de usuários
-* criação e gerenciamento de ciclos de estudo
-* gerenciamento de disciplinas dentro dos ciclos
-* controle do progresso do estudante no ciclo
-* registro de sessões de estudo
-* fornecimento de dados para métricas e acompanhamento de desempenho
+- Autenticação e gerenciamento de usuários  
+- Criação e gerenciamento de ciclos de estudo  
+- Gerenciamento de disciplinas  
+- Registro de sessões de estudo  
+- Controle de progresso dentro do ciclo  
+- Fornecimento de dados para métricas e desempenho  
 
 ---
 
@@ -49,56 +39,53 @@ src
  └ config
 ```
 
-**Controllers**
-Responsáveis por lidar com as requisições e respostas da API.
+---
 
-**Models**
-Representação das entidades e comunicação com o banco de dados.
+## Camadas da aplicação
 
-**Routes**
-Definição dos endpoints da API.
-
-**Services**
-Camada responsável por regras de negócio e lógica reutilizável.
+- Controllers → requisições e respostas HTTP  
+- Models → entidades e acesso ao banco de dados  
+- Routes → definição dos endpoints  
+- Services → regras de negócio e lógica reutilizável  
+- Middleware → autenticação e validações  
+- Config → configurações da aplicação  
 
 ---
 
 ## Tecnologias
 
-* Node.js
-* Express.js
-* MongoDB
-* Mongoose
+- Node.js  
+- Express.js  
+- MongoDB  
+- Mongoose  
 
 ---
 
-## Integração com o Frontend
+## Integração com Frontend
 
-Esta API é utilizada pela aplicação web do projeto.
+Esta API é consumida pela aplicação web:
 
-Repositório do frontend:
-
-https://github.com/seu-usuario/onde-eu-parei-frontend
+https://github.com/seu-usuario/onde-eu-parei
 
 ---
 
-## Principais funcionalidades da API
+## Funcionalidades principais
 
-* Cadastro e autenticação de usuários
-* Criação de ciclos de estudo
-* Gerenciamento de disciplinas
-* Controle de progresso dentro do ciclo
-* Registro de sessões de estudo
-* Fornecimento de dados para visualização de desempenho
-
----
-
-## Status do projeto
-
-Em fase INICIAL.
+- Cadastro e autenticação de usuários  
+- Criação de ciclos de estudo  
+- Gerenciamento de disciplinas  
+- Controle de progresso  
+- Registro de sessões de estudo  
+- Dados para visualização de desempenho  
 
 ---
 
-## Autor
+## Status do Projeto
+
+Em desenvolvimento inicial.
+
+---
+
+## Desenvolvedor
 
 Mateus de Aquino
