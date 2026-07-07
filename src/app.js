@@ -7,6 +7,7 @@ const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const topicRoutes = require('./routes/topicRoutes');
 const cycleRoutes = require('./routes/cycleRoutes');
+const editalRoutes = require('./routes/editalRoutes');
 
 const app = express();
 
@@ -32,5 +33,6 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/topics', topicRoutes);
 app.use('/api/cycles', cycleRoutes);
+app.use('/api/editais', editalRoutes);
 
 module.exports = app;

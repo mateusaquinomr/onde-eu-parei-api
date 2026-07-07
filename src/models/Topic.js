@@ -53,6 +53,7 @@ const tagSchema = new mongoose.Schema({
 const topicSchema = new mongoose.Schema({
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     name: { type: String, required: true },
+    editalId: { type: String, default: null },
     notebookColor: { type: String, enum: ['azul', 'amarelo', 'vermelho', 'verde', 'rosa', 'preto'], default: 'azul' },
     difficulty: { type: String, enum: ['facil', 'medio', 'dificil'], default: 'medio' },
     tags: [tagSchema],

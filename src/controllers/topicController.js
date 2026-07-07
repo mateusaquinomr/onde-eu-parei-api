@@ -25,13 +25,14 @@ const getTopicById = async (req, res) => {
 
 const createTopic = async (req, res) => {
     try {
-        const { name, notebookColor, difficulty, tags, contents } = req.body;
+        const { name, notebookColor, difficulty, tags, contents, editalId } = req.body;
 
         const newTopic = new Topic({
             userId: req.user.id,
             name,
             notebookColor: notebookColor || 'azul',
             difficulty: difficulty || 'medio',
+            editalId: editalId || null,
             tags: tags || [],
             contents: contents.map((c, index) => ({
                 id: require('crypto').randomUUID(),
@@ -71,7 +72,7 @@ const updateTopic = async (req, res) => {
             return res.status(404).json({ message: 'Tópico não encontrado' });
         }
 
-        const allowedUpdates = ['name', 'notebookColor', 'difficulty', 'tags', 'contents', 'totalMinutes', 'lastAccessed'];
+        const allowedUpdates = ['name', 'notebookColor', 'difficulty', 'tags', 'contents', 'totalMinutes', 'lastAccessed', 'editalId'];
         allowedUpdates.forEach(field => {
             if (req.body[field] !== undefined) {
                 topic[field] = req.body[field];
@@ -196,7 +197,6 @@ const updateContentQuestions = async (req, res) => {
         res.status(500).json({ message: 'Erro ao atualizar questões' });
     }
 };
-
 
 const markContentAsCompleted = async (req, res) => {
     try {
