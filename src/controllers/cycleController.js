@@ -2,13 +2,14 @@ const Cycle = require('../models/Cycle');
 
 const formatCycle = (cycle) => {
     if (!cycle) return null;
+
     const cycleObj = cycle.toObject();
+
     return {
         ...cycleObj,
-        id: cycleObj._id,
+        id: cycleObj._id.toString(),
         blocks: cycleObj.blocks.map(block => ({
             ...block,
-            id: block._id,
             _id: undefined
         })),
         _id: undefined
@@ -146,19 +147,28 @@ const completeBlock = async (req, res) => {
 const decrementBlockMinutes = async (req, res) => {
     try {
         const { minutesToDecrement } = req.body;
-        const cycle = await Cycle.findOne({ _id: req.params.id, userId: req.user.id });
+
+        const cycle = await Cycle.findOne({
+            _id: req.params.id,
+            userId: req.user.id
+        });
 
         if (!cycle) {
             return res.status(404).json({ message: 'Ciclo não encontrado' });
         }
 
         const block = cycle.blocks.find(b => b.id === req.params.blockId);
-        if (!block || block.completed) {
-            return res.status(400).json({ message: 'Bloco não pode ser alterado' });
+
+        if (!block) {
+            return res.status(404).json({ message: 'Bloco não encontrado' });
         }
 
-        const newMinutes = Math.max(0, block.minutes - minutesToDecrement);
-        block.minutes = newMinutes;
+        if (block.completed) {
+            return res.status(400).json({ message: 'Bloco já concluído' });
+        }
+
+        const decrement = Math.max(0, Number(minutesToDecrement) || 0);
+        block.minutes = Math.max(0, block.minutes - decrement);
 
         const totalMinutes = cycle.blocks.reduce((sum, b) => sum + b.minutes, 0);
         const completedMinutes = cycle.blocks
@@ -171,6 +181,7 @@ const decrementBlockMinutes = async (req, res) => {
         cycle.updatedAt = new Date();
 
         await cycle.save();
+
         res.json(formatCycle(cycle));
     } catch (error) {
         console.error(error);
