@@ -8,6 +8,7 @@ const userRoutes = require('./routes/userRoutes');
 const topicRoutes = require('./routes/topicRoutes');
 const cycleRoutes = require('./routes/cycleRoutes');
 const editalRoutes = require('./routes/editalRoutes');
+const taskRoutes = require('./routes/taskRoutes');
 
 const app = express();
 
@@ -34,5 +35,6 @@ app.use('/api/users', userRoutes);
 app.use('/api/topics', topicRoutes);
 app.use('/api/cycles', cycleRoutes);
 app.use('/api/editais', editalRoutes);
+app.use('/api/tasks', taskRoutes);
 
 module.exports = app;
