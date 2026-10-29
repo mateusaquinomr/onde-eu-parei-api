@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const compression = require('compression');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
@@ -15,9 +16,11 @@ const app = express();
 const corsOptions = {
     origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
     credentials: true,
-    optionsSuccessStatus: 200
+    optionsSuccessStatus: 200,
+    maxAge: 7200
 };
 
+app.use(compression());
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

@@ -7,6 +7,7 @@ const taskSchema = new mongoose.Schema({
     dueDate: { type: Date },
     completed: { type: Boolean, default: false },
     completedAt: { type: Date },
+    editalId: { type: mongoose.Schema.Types.ObjectId, ref: 'Edital', default: null },
     createdAt: { type: Date, default: Date.now }
 });
 

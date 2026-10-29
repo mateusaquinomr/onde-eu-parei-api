@@ -12,7 +12,7 @@ const getAllTasks = async (req, res) => {
 
 const createTask = async (req, res) => {
     try {
-        const { title, description, dueDate } = req.body;
+        const { title, description, dueDate, editalId } = req.body;
 
         if (!title || !title.trim()) {
             return res.status(400).json({ message: 'Título da tarefa é obrigatório' });
@@ -23,6 +23,7 @@ const createTask = async (req, res) => {
             title: title.trim(),
             description,
             dueDate,
+            editalId: editalId || null,
             createdAt: new Date()
         });
 
@@ -47,7 +48,7 @@ const updateTask = async (req, res) => {
             return res.status(404).json({ message: 'Tarefa não encontrada' });
         }
 
-        const allowedUpdates = ['title', 'description', 'dueDate', 'completed'];
+        const allowedUpdates = ['title', 'description', 'dueDate', 'completed', 'editalId'];
         allowedUpdates.forEach(field => {
             if (req.body[field] !== undefined) {
                 task[field] = req.body[field];
