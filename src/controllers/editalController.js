@@ -74,7 +74,7 @@ const updateEdital = async (req, res) => {
             return res.status(404).json({ message: 'Edital não encontrado' });
         }
 
-        const allowedUpdates = ['nome', 'banca', 'dataProva', 'local'];
+        const allowedUpdates = ['nome', 'banca', 'dataProva', 'local', 'archived', 'archivedAt'];
         allowedUpdates.forEach(field => {
             if (req.body[field] !== undefined) {
                 edital[field] = req.body[field];

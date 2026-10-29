@@ -6,6 +6,8 @@ const editalSchema = new mongoose.Schema({
     banca: { type: String, required: true },
     dataProva: { type: Date, required: true },
     local: { type: String, required: true },
+    archived: { type: Boolean, default: false },
+    archivedAt: { type: Date, default: null },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
 });

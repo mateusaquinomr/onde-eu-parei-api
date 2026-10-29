@@ -102,6 +102,23 @@ const deleteTopic = async (req, res) => {
     }
 };
 
+const touchTopic = async (req, res) => {
+    try {
+        const lastAccessed = new Date();
+        const result = await Topic.updateOne(
+            { _id: req.params.id, userId: req.user.id },
+            { $set: { lastAccessed } }
+        );
+        if (result.matchedCount === 0) {
+            return res.status(404).json({ message: 'Tópico não encontrado' });
+        }
+        res.json({ lastAccessed });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Erro ao registrar acesso' });
+    }
+};
+
 const addStudyMinutes = async (req, res) => {
     try {
         const { minutes } = req.body;
@@ -229,6 +246,7 @@ module.exports = {
     createTopic,
     updateTopic,
     deleteTopic,
+    touchTopic,
     addStudyMinutes,
     updateContentNotes,
     updateContentChecklist,

@@ -7,6 +7,7 @@ const {
     createTopic,
     updateTopic,
     deleteTopic,
+    touchTopic,
     addStudyMinutes,
     updateContentNotes,
     updateContentChecklist,
@@ -21,6 +22,7 @@ router.get('/:id', getTopicById);
 router.post('/', createTopic);
 router.put('/:id', updateTopic);
 router.delete('/:id', deleteTopic);
+router.post('/:id/access', touchTopic);
 router.post('/:id/study-minutes', addStudyMinutes);
 router.put('/:id/contents/:contentId/notes', updateContentNotes);
 router.put('/:id/contents/:contentId/checklist', updateContentChecklist);
